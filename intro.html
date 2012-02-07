@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Introduction to Canvas</title>
+	<script src="http://yandex.st/highlightjs/6.1/highlight.min.js"></script>
+	<link rel="stylesheet" href="http://yandex.st/highlightjs/6.1/styles/github.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="container">
+
+<h1>HTML5 Canvas</h1>
+
+
+<h2>Introduction</h2>
+
+<p>One of the coolest features introduced in HTML5 is the canvas element which allows you to draw directly onto a web page. You will be using JavaScript to do your drawing so I assume you have some basic knowledge of the language. By the end of this tutorial you will know the basic uses the canvas element has to offer and will be well on your way to creating some simple games.</p>
+
+<h2>Getting started with canvas</h2>
+
+<p>Using the canvas element in your project couldn't be easier. The following code is all you need to get started.</p>
+
+<div class="snippet">
+<pre><code class="xml"><span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"mainCanvas"</span>&gt;</span>
+     <span class="comment">&lt;!-- insert fallback  --&gt;</span>
+<span class="tag">&lt;/<span class="title">canvas</span>&gt;</span></code></pre>
+</div>
+
+<p>Now before you go and run this code let me first tell you that it does absolutely nothing on its own. What this bit of code gets you is a blank canvas element but once we get into the 2d rendering context you will start to see some results.</p>
+
+<h2>2d rendering context</h2>
+
+<p>The canvas element is pretty lame but, the 2d rendering context is awesome and where all the cool things happen. It is important that you understand that everything you draw gets drawn on the 2d rendering context not the canvas. The canvas is only used to access and display the rendering context.</p>
+
+
+<h3>The coordinate system</h3>
+
+
+<p>...</p>
+
+<p>Here is some html5 boilerplate to get started things started.</p>
+
+<div class="snippet">
+<pre><code class="xml"><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+
+<span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span>
+<span class="tag">&lt;<span class="title">head</span>&gt;</span>
+     <span class="tag">&lt;<span class="title">title</span>&gt;</span>Html5 Canvas<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+     <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+          <span class="comment">/* Insert javascript code examples here */</span>
+     </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+
+<span class="tag">&lt;<span class="title">body</span>&gt;</span>
+     <span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"myCanvas"</span>&gt;</span>
+          <span class="comment">&lt;!-- insert fallback  --&gt;</span>
+     <span class="tag">&lt;/<span class="title">canvas</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span></code></pre>
+</div>
+
+<!-- <div class="snippet">
+	<header>Some Shit</header>
+	<pre><code class="javascript"><span class="function"><span class="keyword">function</span> <span class="title">test</span> <span class="params">()</span> {</span>
+    <span class="keyword">var</span> c = document.getElementById(<span class="string">'canvas'</span>);
+}</code></pre>
+</div> -->
+
+</div>
+</body>
+</html>

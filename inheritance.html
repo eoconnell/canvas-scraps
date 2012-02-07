@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title></title>
+<style>
+#myCanvas {
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="600" height="600"></canvas>
+
+<script>
+
+var canvas = document.getElementById('myCanvas');
+var context = canvas.getContext('2d');
+
+/////////////////////////////////////
+// Shape Object
+/////////////////////////////////////
+function Shape() {
+	this.x = 0;
+	this.y = 0;
+	this.dx = 1;
+	this.dy = 1;
+	this.color = 'red';
+}
+
+Shape.prototype.step = function() {
+	this.x = this.x + this.dx;
+	this.y = this.y + this.dy;
+}
+
+Shape.prototype.setColor = function(color) {
+	this.color = color;
+}
+
+Shape.prototype.toString = function() {
+	return '[Shape {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+']';
+}
+
+/////////////////////////////////////
+// Box Object - extends Shape
+/////////////////////////////////////
+Box.prototype = new Shape();
+Box.prototype.constructor = Box;
+
+function Box(x,y,w,h) {
+	this.x = x;
+	this.y = y;
+	this.width = w;
+	this.height = h;
+}
+
+Box.prototype.draw = function(ctx) {
+	ctx.fillStyle = this.color;
+	ctx.fillRect(this.x,this.y,this.width,this.height);
+}
+
+Box.prototype.toString = function() {
+	return '[Box {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+', width: '+this.width+', height: '+this.height+']';
+}
+
+/////////////////////////////////////
+// Ball Object - extends Shape
+/////////////////////////////////////
+Ball.prototype = new Shape();
+Ball.prototype.constructor = Ball;
+
+function Ball(x,y,r) {
+	this.x = x;
+	this.y = y;
+	this.radius = r;
+}
+
+Ball.prototype.draw = function(ctx) {
+	ctx.fillStyle = this.color;
+	ctx.beginPath();
+	ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, true);
+	ctx.fill();
+}
+
+Ball.prototype.toString = function() {
+	return '[Ball {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+', radius: '+this.radius+', color: '+this.color+']';
+}
+
+/////////////////////////////////////
+/////////////////////////////////////
+
+var b1 = new Ball(10, 10, 10);
+var b2 = new Ball(50, 50, 30);
+
+function clear() {
+	context.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function draw() {
+	clear();
+	b1.draw(context);
+	b2.draw(context);
+
+	b1.step();
+	b2.step();
+}
+
+draw();
+setInterval(draw, 10);
+
+
+
+
+
+</script>
+</body>
+</html>

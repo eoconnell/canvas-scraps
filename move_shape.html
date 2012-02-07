@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title></title>
+<style>
+	#myCanvas {
+		border: 1px solid black;
+	}
+</style>
+</head>
+<body>
+	<canvas id="myCanvas"></canvas>
+<script>
+
+var canvas;
+var ctx;
+var dx = 5;
+var dy = 5;
+var x = 150;
+var y = 100;
+var WIDTH  = 400;
+var HEIGHT = 400;
+
+function circle(x,y,r) {
+	ctx.beginPath();
+	ctx.arc(x, y, r, 0, Math.PI*2, true);
+	ctx.fill();
+}
+
+function rect(x,y,w,h) {
+	ctx.beginPath();
+	ctx.rect(x,y,w,h);
+	ctx.closePath();
+	ctx.fill();
+	ctx.stroke();
+}
+
+function clear() {
+	ctx.clearRect(0, 0, WIDTH, HEIGHT);
+}
+
+function init() {
+	canvas = document.getElementById('myCanvas');
+	canvas.width = WIDTH;
+	canvas.height = HEIGHT;
+	ctx = canvas.getContext('2d');
+	return setInterval(draw, 10);
+}
+
+function doKeyDown(evt){
+	switch (evt.keyCode) {
+		case 38:  /* Up arrow was pressed */
+			if (y - dy > 20){
+				y -= dy;
+			}
+			break;
+		case 40:  /* Down arrow was pressed */
+			if (y + dy < HEIGHT-20){
+				y += dy;
+			}
+			break;
+		case 37:  /* Left arrow was pressed */
+			if (x - dx > 20){
+				x -= dx;
+			}
+			break;
+		case 39:  /* Right arrow was pressed */
+			if (x + dx < WIDTH-20){
+				x += dx;
+			}
+			break;
+	}
+}
+
+function draw() {
+	clear();
+	ctx.fillStyle = "white";
+	// rect(0,0,WIDTH,HEIGHT);
+	ctx.fillStyle = "red";
+	circle(x, y, 20);
+}
+
+init();
+window.addEventListener('keydown',doKeyDown,true);
+
+</script>
+</body>
+</html>
