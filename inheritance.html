@@ -16,6 +16,14 @@
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 
+/*
+	ParentClass.prototype.inheritedMethod = function() {};
+
+	ChildeClass.prototype = new ParentClass();
+	ChildeClass.prototype.constructor = ChildClass;
+*/
+
+
 /////////////////////////////////////
 // Shape Object
 /////////////////////////////////////
@@ -49,29 +57,38 @@ Box.prototype.constructor = Box;
 function Box(x,y,w,h) {
 	this.x = x;
 	this.y = y;
-	this.width = w;
-	this.height = h;
+	this.w = w;
+	this.h = h;
 }
 
 Box.prototype.draw = function(ctx) {
 	ctx.fillStyle = this.color;
-	ctx.fillRect(this.x,this.y,this.width,this.height);
+	ctx.fillRect(this.x,this.y,this.w,this.h);
+}
+
+Box.prototype.intersect = function(that) {
+	if ((this.x+this.w) < that.x) { return false; }  // this is left of that
+	if (this.x > (that.x+that.w)) { return false; }  // this is right of that
+	if ((this.y+this.h) < that.y) { return false; }  // this is above that
+	if (this.y > (that.y+that.h)) { return false; }  // this is bloew that
+	return true;                                     // this overlaps that
 }
 
 Box.prototype.toString = function() {
-	return '[Box {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+', width: '+this.width+', height: '+this.height+']';
+	return '[Box {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+', width: '+this.w+', height: '+this.h+']';
 }
 
 /////////////////////////////////////
 // Ball Object - extends Shape
 /////////////////////////////////////
-Ball.prototype = new Shape();
+Ball.prototype = new Box();
 Ball.prototype.constructor = Ball;
 
 function Ball(x,y,r) {
 	this.x = x;
 	this.y = y;
 	this.radius = r;
+	this.w = this.h = (2 * r);
 }
 
 Ball.prototype.draw = function(ctx) {
@@ -95,22 +112,27 @@ function clear() {
 	context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function draw() {
-	clear();
-	b1.draw(context);
-	b2.draw(context);
+// function draw() {
+// 	clear();
+// 	b1.draw(context);
+// 	b2.draw(context);
 
-	b1.step();
-	b2.step();
-}
+// 	b1.step();
+// 	b2.step();
+// }
 
-draw();
-setInterval(draw, 10);
+// draw();
+// setInterval(draw, 10);
 
+var a = new Box(50,50,100,100);
+a.draw(context);
 
+var b = new Box(50,151,100,100);
+b.setColor('blue');
+b.draw(context);
 
-
-
+console.log(a.intersect(b));
+console.log(b.intersect(a));
 </script>
 </body>
 </html>
