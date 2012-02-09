@@ -1,138 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title></title>
-<style>
-#myCanvas {
-	border: 1px solid black;
-}
-</style>
+	<title>JavaScript Prototypal Inheritance</title>
 </head>
 <body>
-	<canvas id="myCanvas" width="600" height="600"></canvas>
+
+<h3>toString()</h3>
+R: <span id="r"></span><br />
+S: <span id="s"></span><br />
+
+<h3>Area() inherited from Rectangle</h3>
+R Area: <span id="rarea"></span><br />
+S Area: <span id="sarea"></span><br />
 
 <script>
 
-var canvas = document.getElementById('myCanvas');
-var context = canvas.getContext('2d');
-
 /*
+	How it works:
+
 	ParentClass.prototype.inheritedMethod = function() {};
 
 	ChildeClass.prototype = new ParentClass();
 	ChildeClass.prototype.constructor = ChildClass;
 */
 
-
-/////////////////////////////////////
-// Shape Object
-/////////////////////////////////////
-function Shape() {
-	this.x = 0;
-	this.y = 0;
-	this.dx = 1;
-	this.dy = 1;
-	this.color = 'red';
+/**
+ * Construct a new Rectangle object.
+ *
+ * width  - width of the rectangle.
+ * height - height of the rectangle.
+ *
+ * Examples
+ *
+ *    var r = new Rectangle(10,20)
+ *
+ * Returns the new Rectangle object.
+ */
+function Rectangle(width, height) {
+	this.width  = width;
+	this.height = height;
 }
 
-Shape.prototype.step = function() {
-	this.x = this.x + this.dx;
-	this.y = this.y + this.dy;
+/** 
+ * Returns the area of the Rectangle.
+ */
+Rectangle.prototype.area = function() {
+	return this.width * this.height;
 }
 
-Shape.prototype.setColor = function(color) {
-	this.color = color;
+/**
+ * Returns a string of Rectangle properties.
+ */
+Rectangle.prototype.toString = function() {
+	return 'Rectangle ['+this.width+'x'+this.height+']';
 }
 
-Shape.prototype.toString = function() {
-	return '[Shape {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+']';
+/**
+ * Square inherits the properties of Rectangle.
+ */
+Square.prototype = new Rectangle();
+Square.prototype.constructor = Square;
+
+/**
+ * Construct a new Square object.
+ *
+ * size  - width and height of the square. (inherited)
+ *
+ * Examples
+ *
+ *    var r = new Rectangle(10,20)
+ *
+ * Returns the new Rectangle object.
+ */
+function Square(size) {
+	this.width  = size;
+	this.height = size;
 }
 
-/////////////////////////////////////
-// Box Object - extends Shape
-/////////////////////////////////////
-Box.prototype = new Shape();
-Box.prototype.constructor = Box;
-
-function Box(x,y,w,h) {
-	this.x = x;
-	this.y = y;
-	this.w = w;
-	this.h = h;
+/**
+ * Returns a string of Square properties.
+ */
+Square.prototype.toString = function() {
+	return 'Square ['+this.width+'x'+this.height+']';
 }
 
-Box.prototype.draw = function(ctx) {
-	ctx.fillStyle = this.color;
-	ctx.fillRect(this.x,this.y,this.w,this.h);
-}
+var r = new Rectangle(30,10);
+var s = new Square(20);
 
-Box.prototype.intersect = function(that) {
-	if ((this.x+this.w) < that.x) { return false; }  // this is left of that
-	if (this.x > (that.x+that.w)) { return false; }  // this is right of that
-	if ((this.y+this.h) < that.y) { return false; }  // this is above that
-	if (this.y > (that.y+that.h)) { return false; }  // this is bloew that
-	return true;                                     // this overlaps that
-}
+document.getElementById('r').innerHTML = r.toString();
+document.getElementById('s').innerHTML = s.toString();
 
-Box.prototype.toString = function() {
-	return '[Box {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+', width: '+this.w+', height: '+this.h+']';
-}
+document.getElementById('rarea').innerHTML = r.area();
+document.getElementById('sarea').innerHTML = s.area();
 
-/////////////////////////////////////
-// Ball Object - extends Shape
-/////////////////////////////////////
-Ball.prototype = new Box();
-Ball.prototype.constructor = Ball;
 
-function Ball(x,y,r) {
-	this.x = x;
-	this.y = y;
-	this.radius = r;
-	this.w = this.h = (2 * r);
-}
 
-Ball.prototype.draw = function(ctx) {
-	ctx.fillStyle = this.color;
-	ctx.beginPath();
-	ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, true);
-	ctx.fill();
-}
-
-Ball.prototype.toString = function() {
-	return '[Ball {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+', radius: '+this.radius+', color: '+this.color+']';
-}
-
-/////////////////////////////////////
-/////////////////////////////////////
-
-var b1 = new Ball(10, 10, 10);
-var b2 = new Ball(50, 50, 30);
-
-function clear() {
-	context.clearRect(0, 0, canvas.width, canvas.height);
-}
-
-// function draw() {
-// 	clear();
-// 	b1.draw(context);
-// 	b2.draw(context);
-
-// 	b1.step();
-// 	b2.step();
-// }
-
-// draw();
-// setInterval(draw, 10);
-
-var a = new Box(50,50,100,100);
-a.draw(context);
-
-var b = new Box(50,151,100,100);
-b.setColor('blue');
-b.draw(context);
-
-console.log(a.intersect(b));
-console.log(b.intersect(a));
 </script>
 </body>
 </html>
