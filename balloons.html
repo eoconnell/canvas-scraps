@@ -2,11 +2,6 @@
 <html>
 <head>
 	<title>Shoot Some Balloons</title>
-<style>
-#canvas {
-	border: 1px solid black;
-}
-</style>
 </head>
 <body>
 <canvas id="canvas"></div>
@@ -15,28 +10,29 @@
 var canvas  = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
+canvas.width  = 500;
+canvas.height = 600;
+
+// key code constants
 var LEFT  = 37;
 var RIGHT = 39;
 var SPACE = 32;
 
-canvas.width  = 500;
-canvas.height = 400;
-
 var cannon = {
 	x: 225,
-	y: 350,
+	y: 550,
 	width: 50,
-	speed: 7,
+	speed: 15,
 };
 
-var bullets = [];
+var bullets  = [];
 var balloons = [];
 
 /**
  * Construct a new Bullet.
  * 
- * x - 
- * y - 
+ * x - starting x position.
+ * y - starting y position.
  *
  * Examples
  *
@@ -69,14 +65,17 @@ function Balloon() {
 	
 	return {
 		x: Math.floor(Math.random()*(canvas.width-25)), // [0, width]
-		y: Math.floor(Math.random()*(-25)), // [0, -25]
+		y: Math.floor(Math.random()*(-25)),             // [0, -25]
 		width: 15,
 		height: 15,
-		speed: Math.floor((Math.random()*2)+1), // [5,15]
+		speed: Math.floor((Math.random()*2)+1),         // [1,3]
 		color: 'red',
 	};
 }
 
+/**
+ * Draws the Cannon on the canvas.
+ */
 function drawCannon() {
 	context.fillStyle = 'white';
 	// gun
@@ -85,34 +84,53 @@ function drawCannon() {
 	context.fillRect(cannon.x,cannon.y+10,cannon.width,15);
 }
 
+/**
+ * Draws each Bullet on the canvas and removes it once off the canvas.
+ */
 function drawBullets() {
 	for (var i=0; i<bullets.length; i++) {
 		var b = bullets[i];
 		context.fillStyle = b.color;
 		context.fillRect(b.x, b.y, b.width, b.height);
 		bullets[i].y = b.y - b.speed;
-		if (bullets[i].y < 0) {	// went off the canvas
+		if (bullets[i].y < 0) {   // went off the canvas
 			bullets.splice(i,1);
 		}
 	}
 }
 
+/**
+ * Draws each Balloon on the canvas and removes it once off the canvas.
+ */
 function drawBalloons() {
 	for (var i=0; i<balloons.length; i++) {
 		var b = balloons[i];
 		context.fillStyle = b.color;
 		context.fillRect(b.x, b.y, b.width, b.height);
 		balloons[i].y = b.y + b.speed;
-		if (balloons[i].y > canvas.height) {	// went off the canvas
+		if (balloons[i].y > canvas.height) {   // went off the canvas
 			balloons.splice(i,1);
 		}
 	}
 }
 
+/**
+ * Adds a new Balloon to the game.
+ */
 function addBalloon() {
 	balloons.push(Balloon());
 }
 
+setInterval(addBalloon, 3000);
+
+/**
+ * Calculates whether two objects intersect.
+ *
+ * a - object that has properties {x,y,width,height}.
+ * b - object that has properties {x,y,width,height}.
+ *
+ * Returns true or false.
+ */
 function intersect(a,b) {
 	if ((a.x+a.width) < b.x) { return false; }  // a is left of b
 	if (a.x > (b.x+b.width)) { return false; }  // a is right of b
@@ -121,6 +139,9 @@ function intersect(a,b) {
 	return true;                                // a overlaps b
 }
 
+/**
+ * Checks to see if any bullets intersect with a balloon.
+ */
 function detectCollisions() {
 	for (var a = 0; a < bullets.length; a++) {
 		for (var b =0 ; b < balloons.length; b++) {
@@ -132,6 +153,9 @@ function detectCollisions() {
 	}
 }
 
+/**
+ * Handles user input.
+ */
 function onKeyPress(event) {
 	switch (event.keyCode) {
 		case LEFT:
@@ -156,11 +180,17 @@ function onKeyPress(event) {
 
 window.addEventListener('keydown', onKeyPress, true);
 
+/**
+ * Clears the 2d rendering context.
+ */
 function clear() {
 	context.fillStyle = 'black';
 	context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+/**
+ * Draws each object on the canvas and checks for collisions.
+ */
 function draw() {
 	clear();
 	drawCannon();
@@ -170,7 +200,6 @@ function draw() {
 }
 
 setInterval(draw, 10);
-setInterval(addBalloon, 3000);
 
 </script>
 </body>

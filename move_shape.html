@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title></title>
+	<title>Move Shape with Keyboard</title>
 <style>
 	#myCanvas {
 		border: 1px solid black;
@@ -13,7 +13,7 @@
 <script>
 
 var canvas;
-var ctx;
+var context;
 var dx = 5;
 var dy = 5;
 var x = 150;
@@ -22,28 +22,28 @@ var WIDTH  = 400;
 var HEIGHT = 400;
 
 function circle(x,y,r) {
-	ctx.beginPath();
-	ctx.arc(x, y, r, 0, Math.PI*2, true);
-	ctx.fill();
+	context.beginPath();
+	context.arc(x, y, r, 0, Math.PI*2, true);
+	context.fill();
 }
 
 function rect(x,y,w,h) {
-	ctx.beginPath();
-	ctx.rect(x,y,w,h);
-	ctx.closePath();
-	ctx.fill();
-	ctx.stroke();
+	context.beginPath();
+	context.rect(x,y,w,h);
+	context.closePath();
+	context.fill();
+	context.stroke();
 }
 
 function clear() {
-	ctx.clearRect(0, 0, WIDTH, HEIGHT);
+	context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function init() {
 	canvas = document.getElementById('myCanvas');
 	canvas.width = WIDTH;
 	canvas.height = HEIGHT;
-	ctx = canvas.getContext('2d');
+	context = canvas.getContext('2d');
 	return setInterval(draw, 10);
 }
 
@@ -55,7 +55,7 @@ function doKeyDown(evt){
 			}
 			break;
 		case 40:  /* Down arrow was pressed */
-			if (y + dy < HEIGHT-20){
+			if (y + dy < canvas.height-20){
 				y += dy;
 			}
 			break;
@@ -65,7 +65,7 @@ function doKeyDown(evt){
 			}
 			break;
 		case 39:  /* Right arrow was pressed */
-			if (x + dx < WIDTH-20){
+			if (x + dx < canvas.width-20){
 				x += dx;
 			}
 			break;
@@ -74,9 +74,9 @@ function doKeyDown(evt){
 
 function draw() {
 	clear();
-	ctx.fillStyle = "white";
+	context.fillStyle = "white";
 	// rect(0,0,WIDTH,HEIGHT);
-	ctx.fillStyle = "red";
+	context.fillStyle = "red";
 	circle(x, y, 20);
 }
 
