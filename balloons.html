@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shoot Some Balloons</title>
+<style>
+#canvas {
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"></div>
+<script>
+
+var canvas  = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+var LEFT  = 37;
+var RIGHT = 39;
+var SPACE = 32;
+
+canvas.width  = 500;
+canvas.height = 400;
+
+var cannon = {
+	x: 225,
+	y: 350,
+	width: 50,
+	speed: 7,
+};
+
+var bullets = [];
+var balloons = [];
+
+/**
+ * Construct a new Bullet.
+ * 
+ * x - 
+ * y - 
+ *
+ * Examples
+ *
+ *     var bul = new Bullet(10,40)
+ *
+ * Returns a new Bullet literal.
+ */
+function Bullet(x,y) {
+	
+	return {
+		x: x,
+		y: y,
+		width: 5,
+		height: 10,
+		color: 'yellow',
+		speed: 5,
+	};
+}
+
+/**
+ * Construct a new Balloon with random values.
+ * 
+ * Examples
+ *
+ *     var bal = new Balloon()
+ *
+ * Returns a new Ballon literal.
+ */
+function Balloon() {
+	
+	return {
+		x: Math.floor(Math.random()*(canvas.width-25)), // [0, width]
+		y: Math.floor(Math.random()*(-25)), // [0, -25]
+		width: 15,
+		height: 15,
+		speed: Math.floor((Math.random()*2)+1), // [5,15]
+		color: 'red',
+	};
+}
+
+function drawCannon() {
+	context.fillStyle = 'white';
+	// gun
+	context.fillRect(cannon.x+20,cannon.y,10,10);
+	// ship
+	context.fillRect(cannon.x,cannon.y+10,cannon.width,15);
+}
+
+function drawBullets() {
+	for (var i=0; i<bullets.length; i++) {
+		var b = bullets[i];
+		context.fillStyle = b.color;
+		context.fillRect(b.x, b.y, b.width, b.height);
+		bullets[i].y = b.y - b.speed;
+		if (bullets[i].y < 0) {	// went off the canvas
+			bullets.splice(i,1);
+		}
+	}
+}
+
+function drawBalloons() {
+	for (var i=0; i<balloons.length; i++) {
+		var b = balloons[i];
+		context.fillStyle = b.color;
+		context.fillRect(b.x, b.y, b.width, b.height);
+		balloons[i].y = b.y + b.speed;
+		if (balloons[i].y > canvas.height) {	// went off the canvas
+			balloons.splice(i,1);
+		}
+	}
+}
+
+function addBalloon() {
+	balloons.push(Balloon());
+}
+
+function intersect(a,b) {
+	if ((a.x+a.width) < b.x) { return false; }  // a is left of b
+	if (a.x > (b.x+b.width)) { return false; }  // a is right of b
+	if ((a.y+a.height) < b.y) { return false; } // a is above b
+	if (a.y > (b.y+b.height)) { return false; } // a is bloew b
+	return true;                                // a overlaps b
+}
+
+function detectCollisions() {
+	for (var a = 0; a < bullets.length; a++) {
+		for (var b =0 ; b < balloons.length; b++) {
+			if (intersect(bullets[a], balloons[b])) {
+				bullets.splice(a, 1);
+				balloons.splice(b, 1);
+			}
+		}
+	}
+}
+
+function onKeyPress(event) {
+	switch (event.keyCode) {
+		case LEFT:
+			if (cannon.x > 0) {
+				cannon.x = cannon.x - cannon.speed;
+			} else {
+				cannon.x = 0;
+			}
+			break;
+		case RIGHT:
+			if (cannon.x < canvas.width - cannon.width) {
+				cannon.x = cannon.x + cannon.speed;
+			} else {
+				cannon.x = canvas.width - cannon.width;
+			}
+			break;
+		case SPACE:
+			bullets.push(Bullet(cannon.x+22, cannon.y));
+			break;
+	}
+}
+
+window.addEventListener('keydown', onKeyPress, true);
+
+function clear() {
+	context.fillStyle = 'black';
+	context.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function draw() {
+	clear();
+	drawCannon();
+	drawBalloons();
+	drawBullets();
+	detectCollisions();
+}
+
+setInterval(draw, 10);
+setInterval(addBalloon, 3000);
+
+</script>
+</body>
+</html>
