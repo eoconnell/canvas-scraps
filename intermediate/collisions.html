@@ -38,21 +38,21 @@ function Shape() {
 Shape.prototype.step = function() {
 	this.x = this.x + this.dx;
 	this.y = this.y + this.dy;
-}
+};
 
 /**
  * Sets the fill color of the Shape.
  */
 Shape.prototype.setColor = function(color) {
 	this.color = color;
-}
+};
 
 /**
  * Returns a string of Shape properties.
  */
 Shape.prototype.toString = function() {
 	return '[Shape {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+']';
-}
+};
 
 /**
  * Box inherits the properties of Shape.
@@ -89,7 +89,7 @@ function Box(x,y,w,h,color) {
 Box.prototype.draw = function(ctx) {
 	ctx.fillStyle = this.color;
 	ctx.fillRect(this.x,this.y,this.w,this.h);
-}
+};
 
 /**
  * Calculates whether two Boxes intersect.
@@ -104,41 +104,14 @@ Box.prototype.intersect = function(that) {
 	if ((this.y+this.h) < that.y) { return false; }  // this is above that
 	if (this.y > (that.y+that.h)) { return false; }  // this is bloew that
 	return true;                                     // this overlaps that
-}
+};
 
 /**
  * Returns a string of Box properties.
  */
 Box.prototype.toString = function() {
 	return '[Box {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+', width: '+this.w+', height: '+this.h+']';
-}
-
-/////////////////////////////////////
-// Ball Object - extends Shape
-/////////////////////////////////////
-// Ball.prototype = new Box();
-// Ball.prototype.constructor = Ball;
-
-// function Ball(x,y,r) {
-// 	this.x = x;
-// 	this.y = y;
-// 	this.radius = r;
-// 	this.w = this.h = (2 * r);
-// }
-
-// Ball.prototype.draw = function(ctx) {
-// 	ctx.fillStyle = this.color;
-// 	ctx.beginPath();
-// 	ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, true);
-// 	ctx.fill();
-// }
-
-// Ball.prototype.toString = function() {
-// 	return '[Ball {x: '+this.x+', y: '+this.y+', dx: '+this.dx+', dy: '+this.dy+', radius: '+this.radius+', color: '+this.color+']';
-// }
-
-/////////////////////////////////////
-/////////////////////////////////////
+};
 
 /**
  * Clears the 2d rendering context.
