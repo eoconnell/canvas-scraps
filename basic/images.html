@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
 	<title>Canvas Images</title>
-<style>
-#myCanvas {
-	border: 1px solid black;
-}
-</style>
 </head>
 <body>
 	<canvas id="myCanvas"></canvas>
 <script>
 
-// API Bug: only displays if refreshed using the address bar.
+window.onload = function() {
+	var canvas  = document.getElementById("myCanvas");
+	var context = canvas.getContext("2d");
 
-var canvas = document.getElementById('myCanvas');
-var context = canvas.getContext('2d');
+	var imageObj = new Image();
 
-var img = new Image();
-img.src = "img/templet.gif";
-context.drawImage(img,0,0);
+	/**
+	 * Need to wait for the object to load before drawing it.
+	 */
+	imageObj.onload = function() {
+		context.drawImage(imageObj, 0, 0);
+	};
+
+	imageObj.src = "../assets/img/templet.gif";
+};
 
 </script>
 </body>

@@ -22,7 +22,7 @@ var cannon = {
 	x: 225,
 	y: 550,
 	width: 50,
-	speed: 15,
+	speed: 15
 };
 
 var hits = 0;
@@ -31,7 +31,7 @@ var enemies = [];
 
 /**
  * Construct a new Bullet.
- * 
+ *
  * x - starting x position.
  * y - starting y position.
  *
@@ -49,13 +49,13 @@ function Bullet(x,y) {
 		width: 5,
 		height: 10,
 		speed: 5,
-		color: 'yellow',
+		color: 'yellow'
 	};
 }
 
 /**
  * Construct a new Enemy with random values.
- * 
+ *
  * Examples
  *
  *     var bal = new Enemy()
@@ -70,7 +70,7 @@ function Enemy() {
 		width: 15,
 		height: 15,
 		speed: Math.floor((Math.random()*2)+1),         // [1,3]
-		color: 'red',
+		color: 'red'
 	};
 }
 

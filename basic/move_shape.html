@@ -9,6 +9,7 @@
 </style>
 </head>
 <body>
+	<h3>Use the arrow keys to move the circle</h3>
 	<canvas id="myCanvas"></canvas>
 <script>
 
@@ -18,21 +19,18 @@ var dx = 5;
 var dy = 5;
 var x = 150;
 var y = 100;
-var WIDTH  = 400;
-var HEIGHT = 400;
+var radius = 20;
+
+// key code constants
+var UP    = 38;
+var DOWN  = 40;
+var LEFT  = 37;
+var RIGHT = 39;
 
 function circle(x,y,r) {
 	context.beginPath();
 	context.arc(x, y, r, 0, Math.PI*2, true);
 	context.fill();
-}
-
-function rect(x,y,w,h) {
-	context.beginPath();
-	context.rect(x,y,w,h);
-	context.closePath();
-	context.fill();
-	context.stroke();
 }
 
 function clear() {
@@ -41,31 +39,31 @@ function clear() {
 
 function init() {
 	canvas = document.getElementById('myCanvas');
-	canvas.width = WIDTH;
-	canvas.height = HEIGHT;
+	canvas.width  = 400;
+	canvas.height = 400;
 	context = canvas.getContext('2d');
 	return setInterval(draw, 10);
 }
 
 function doKeyDown(evt){
 	switch (evt.keyCode) {
-		case 38:  /* Up arrow was pressed */
-			if (y - dy > 20){
+		case UP:
+			if (y - dy > radius){
 				y -= dy;
 			}
 			break;
-		case 40:  /* Down arrow was pressed */
-			if (y + dy < canvas.height-20){
+		case DOWN:
+			if (y + dy < canvas.height-radius){
 				y += dy;
 			}
 			break;
-		case 37:  /* Left arrow was pressed */
-			if (x - dx > 20){
+		case LEFT:
+			if (x - dx > radius){
 				x -= dx;
 			}
 			break;
-		case 39:  /* Right arrow was pressed */
-			if (x + dx < canvas.width-20){
+		case RIGHT:
+			if (x + dx < canvas.width-radius){
 				x += dx;
 			}
 			break;
@@ -74,10 +72,8 @@ function doKeyDown(evt){
 
 function draw() {
 	clear();
-	context.fillStyle = "white";
-	// rect(0,0,WIDTH,HEIGHT);
 	context.fillStyle = "red";
-	circle(x, y, 20);
+	circle(x, y, radius);
 }
 
 init();

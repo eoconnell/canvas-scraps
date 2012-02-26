@@ -41,19 +41,19 @@ function Rectangle(width, height) {
 	this.height = height;
 }
 
-/** 
+/**
  * Returns the area of the Rectangle.
  */
 Rectangle.prototype.area = function() {
 	return this.width * this.height;
-}
+};
 
 /**
  * Returns a string of Rectangle properties.
  */
 Rectangle.prototype.toString = function() {
 	return 'Rectangle ['+this.width+'x'+this.height+']';
-}
+};
 
 /**
  * Square inherits the properties of Rectangle.
@@ -82,7 +82,7 @@ function Square(size) {
  */
 Square.prototype.toString = function() {
 	return 'Square ['+this.width+'x'+this.height+']';
-}
+};
 
 var r = new Rectangle(30,10);
 var s = new Square(20);
