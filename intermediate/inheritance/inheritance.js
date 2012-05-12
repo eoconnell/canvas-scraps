@@ -3,8 +3,8 @@
 
 	ParentClass.prototype.inheritedMethod = function() {};
 
-	ChildeClass.prototype = new ParentClass();
-	ChildeClass.prototype.constructor = ChildClass;
+	ChildClass.prototype = new ParentClass();
+	ChildClass.prototype.constructor = ChildClass;
 */
 
 /**
