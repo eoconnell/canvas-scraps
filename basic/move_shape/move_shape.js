@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Move Shape with Keyboard</title>
-<style>
-	#myCanvas {
-		border: 1px solid black;
-	}
-</style>
-</head>
-<body>
-	<h3>Use the arrow keys to move the circle</h3>
-	<canvas id="myCanvas"></canvas>
-<script>
-
 var canvas;
 var context;
 var dx = 5;
@@ -78,7 +63,3 @@ function draw() {
 
 init();
 window.addEventListener('keydown',doKeyDown,true);
-
-</script>
-</body>
-</html>

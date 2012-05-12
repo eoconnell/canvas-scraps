@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Canvas Shapes</title>
-<style>
-	#myCanvas {
-		border: 1px solid black;
-	}
-</style>
-</head>
-<body>
-	<h1>Canvas Shapes</h1>
-	<canvas id="myCanvas"><p>Sorry, your browser doesn't support canvas.</p></canvas>
-<script>
-
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 
@@ -43,7 +28,3 @@ context.lineTo(200,50);
 context.lineTo(100,50);
 context.closePath();
 context.fill();
-
-</script>
-</body>
-</html>

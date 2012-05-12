@@ -1,19 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Basic Collisions with Inheritance</title>
-<style>
-#myCanvas {
-	border: 1px solid black;
-}
-</style>
-</head>
-<body>
-	<canvas id="myCanvas" width="400" height="300"></canvas>
-
-	<ul id="results"></ul>
-<script>
-
 var canvas = document.getElementById('myCanvas');
 var context = canvas.getContext('2d');
 
@@ -156,7 +140,3 @@ function detectCollisions() {
 }
 
 draw();
-
-</script>
-</body>
-</html>

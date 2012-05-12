@@ -1,20 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>JavaScript Prototypal Inheritance</title>
-</head>
-<body>
-
-<h3>toString()</h3>
-R: <span id="r"></span><br />
-S: <span id="s"></span><br />
-
-<h3>Area() inherited from Rectangle</h3>
-R Area: <span id="rarea"></span><br />
-S Area: <span id="sarea"></span><br />
-
-<script>
-
 /*
 	How it works:
 
@@ -92,7 +75,3 @@ document.getElementById('s').innerHTML = s.toString();
 
 document.getElementById('rarea').innerHTML = r.area();
 document.getElementById('sarea').innerHTML = s.area();
-
-</script>
-</body>
-</html>

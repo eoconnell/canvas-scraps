@@ -1,20 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Bounce off Walls</title>
-<style>
-#myCanvas {
-	border: 1px solid black;
-}
-</style>
-</head>
-<body>
-<h2>Bounce off Walls</h2>
-	<canvas id="myCanvas">
-		<!-- Insert fallback content -->
-	</canvas>
-<script>
-
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext('2d');
 
@@ -54,7 +37,3 @@ function clear() {
 
 draw();
 setInterval(draw, 10);
-	
-</script>
-</body>
-</html>

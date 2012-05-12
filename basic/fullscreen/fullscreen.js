@@ -1,21 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Fullscreen Canvas</title>
-<style>
-	* {
-		margin: 0px;
-		padding: 0px;
-	}
-	canvas {
-		display: block;
-	}
-</style>
-</head>
-<body>
-	<canvas id="myCanvas">You're browser doesn't support this.</canvas>
-<script>
-
 var canvas;
 var context;
 
@@ -38,6 +20,3 @@ function draw() {
 
 draw();
 setInterval(draw, 10);
-
-</script>
-</html>

@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Shooting Game</title>
-</head>
-<body>
-<canvas id="stage"></div>
-<script>
-
 var canvas  = document.getElementById('stage');
 var context = canvas.getContext('2d');
 
@@ -209,7 +200,3 @@ function draw() {
 }
 
 setInterval(draw, 10);
-
-</script>
-</body>
-</html>
